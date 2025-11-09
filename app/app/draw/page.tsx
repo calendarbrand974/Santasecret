@@ -100,8 +100,8 @@ export default async function DrawPage() {
   const targetData = revealedTarget ? {
     name: revealedTarget.user?.displayName || 'Inconnu',
     wishlist: revealedTarget.wishlist ? {
-      freeText: revealedTarget.wishlist.freeText,
-      items: revealedTarget.wishlist.items,
+      freeText: revealedTarget.wishlist.freeText ?? undefined,
+      items: revealedTarget.wishlist.items as any,
       updatedAt: revealedTarget.wishlist.updatedAt.toISOString(),
     } : undefined,
   } : null
