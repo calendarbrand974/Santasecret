@@ -54,12 +54,15 @@ export default function HomePage() {
       
       toast.addToast('Connexion réussie !', 'success')
       
-      // Vérifier si le profil est complet
-      if (data.needsProfile) {
-        router.push('/profile')
-      } else {
-        router.push('/app')
-      }
+      // Utiliser window.location pour éviter les erreurs de navigation
+      // Attendre un court délai pour que le toast s'affiche
+      setTimeout(() => {
+        if (data.needsProfile) {
+          window.location.href = '/profile'
+        } else {
+          window.location.href = '/app'
+        }
+      }, 100)
     } catch (err: any) {
       const errorMsg = err.message || (mode === 'code' ? 'Code invalide' : 'Email ou mot de passe incorrect')
       setError(errorMsg)
