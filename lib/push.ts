@@ -4,7 +4,11 @@ import { prisma } from './prisma'
 // Initialiser web-push avec les clés VAPID
 const vapidPublicKey = process.env.VAPID_PUBLIC_KEY
 const vapidPrivateKey = process.env.VAPID_PRIVATE_KEY
-const vapidSubject = process.env.VAPID_SUBJECT || 'mailto:admin@example.com'
+const vapidSubjectRaw = process.env.VAPID_SUBJECT || 'mailto:admin@example.com'
+// S'assurer que VAPID_SUBJECT commence par mailto:
+const vapidSubject = vapidSubjectRaw.startsWith('mailto:') 
+  ? vapidSubjectRaw 
+  : `mailto:${vapidSubjectRaw}`
 
 if (vapidPublicKey && vapidPrivateKey) {
   webpush.setVapidDetails(vapidSubject, vapidPublicKey, vapidPrivateKey)
