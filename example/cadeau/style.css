@@ -1,0 +1,48 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  color: #FFFFFF;
+  background-color: #ED839A;
+}
+
+.svg-wrapper {
+  height: 100vh;
+}
+
+.svg-wrapper svg {
+  display:			block;
+  width:				auto;
+  height:				100%;
+  margin:				auto;
+}
+
+@media only screen and (max-width: 47.98em) {
+  .svg-wrapper svg {
+    max-width: 100%;
+  }
+}
+
+g.surprise-gift {
+  filter: url('#product-dropshadow');
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FF9F43;
+  z-index: -1;
+  opacity: 0;
+}
+
+.bg.gift-open {
+  animation: fadeOut 3.5s ease-out forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}

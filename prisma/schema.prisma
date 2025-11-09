@@ -1,0 +1,237 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+enum MemberStatus {
+  INVITED
+  JOINED
+}
+
+enum DrawStatus {
+  GENERATED
+  LOCKED
+}
+
+enum AuditAction {
+  ADMIN_VIEW_ALL
+  ADMIN_DELETE_PAIR
+  ADMIN_REMATCH
+  MEMBER_REVEAL
+  MEMBER_UPDATE_WISHLIST
+  MEMBER_JOIN
+  MEMBER_SET_PASSWORD
+  DRAW_TRIGGERED
+}
+
+model User {
+  id                String    @id @default(cuid())
+  displayName       String
+  email             String?   @unique
+  emailVerified     Boolean   @default(false)
+  passwordHash      String?
+  passwordSetAt     DateTime?
+  resetTokenHash    String?
+  resetTokenExpiry  DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  groupMembers      GroupMember[]
+  magicLinks        MagicLink[]
+  emailLogs         EmailLog[]
+  auditLogs         AuditLog[] @relation("ActorUser")
+
+  @@index([email])
+}
+
+model Group {
+  id           String   @id @default(cuid())
+  name         String
+  timeZone     String   // IANA timezone (e.g., "Indian/Reunion")
+  openAt       DateTime // ISO datetime with timezone
+  revealPolicy String   @default("reveal_on_open")
+  createdByUserId String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  members      GroupMember[]
+  forbiddenPairs ForbiddenPair[]
+  draws        Draw[]
+  assignments  Assignment[]
+  auditLogs    AuditLog[]
+
+  @@index([openAt])
+}
+
+model GroupMember {
+  id          String       @id @default(cuid())
+  groupId     String
+  userId      String?
+  role        Role         @default(MEMBER)
+  status      MemberStatus @default(INVITED)
+  coupleKey   String?      // Identifiant pour regrouper les couples
+  notifPrefs Json?         // { email: boolean, push: boolean }
+  joinCode   String        @unique
+  joinedAt   DateTime?
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  group      Group         @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user       User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  wishlist   Wishlist?
+  pushSubscriptions PushSubscription[]
+  assignmentsAsGiver Assignment[] @relation("Giver")
+  assignmentsAsReceiver Assignment[] @relation("Receiver")
+  forbiddenPairsAsGiver ForbiddenPair[] @relation("Giver")
+  forbiddenPairsAsReceiver ForbiddenPair[] @relation("Receiver")
+
+  @@unique([groupId, userId])
+  @@index([groupId])
+  @@index([joinCode])
+  @@index([coupleKey])
+}
+
+model Wishlist {
+  id            String   @id @default(cuid())
+  groupMemberId String   @unique
+  freeText      String?
+  items         Json?    // [{ title: string, link?: string, note?: string, priority?: number, category?: string, imageUrl?: string, estimatedPrice?: number, order?: number }]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  groupMember   GroupMember @relation(fields: [groupMemberId], references: [id], onDelete: Cascade)
+
+  @@index([groupMemberId])
+}
+
+model ForbiddenPair {
+  id         String   @id @default(cuid())
+  groupId    String
+  giverId    String
+  receiverId String
+  createdAt  DateTime @default(now())
+
+  group      Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  giver      GroupMember @relation("Giver", fields: [giverId], references: [id], onDelete: Cascade)
+  receiver   GroupMember @relation("Receiver", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, giverId, receiverId])
+  @@index([groupId])
+}
+
+model Draw {
+  id          String     @id @default(cuid())
+  groupId     String
+  status      DrawStatus @default(GENERATED)
+  seed        String     // Seed pour la génération aléatoire
+  createdAt   DateTime   @default(now())
+  lockedAt   DateTime?
+  revealedCount Int      @default(0)
+
+  group       Group      @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  assignments Assignment[]
+
+  @@index([groupId])
+}
+
+model Assignment {
+  id           String    @id @default(cuid())
+  groupId      String
+  drawId       String
+  giverId      String
+  receiverId   String
+  createdAt    DateTime  @default(now())
+  revealedAt   DateTime?
+  revealedByIp String?
+  revealedByUa String?
+
+  group        Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  draw         Draw      @relation(fields: [drawId], references: [id], onDelete: Cascade)
+  giver        GroupMember @relation("Giver", fields: [giverId], references: [id], onDelete: Cascade)
+  receiver     GroupMember @relation("Receiver", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, giverId])
+  @@unique([groupId, receiverId])
+  @@index([groupId])
+  @@index([drawId])
+  @@index([giverId])
+  @@index([receiverId])
+}
+
+model PushSubscription {
+  id          String   @id @default(cuid())
+  groupMemberId String
+  endpoint    String   @unique
+  keys_p256dh String
+  keys_auth   String
+  ua          String?
+  is_active   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  lastSeenAt  DateTime @default(now())
+
+  groupMember GroupMember @relation(fields: [groupMemberId], references: [id], onDelete: Cascade)
+
+  @@index([groupMemberId])
+  @@index([endpoint])
+}
+
+model MagicLink {
+  id         String    @id @default(cuid())
+  userId     String
+  tokenHash  String    @unique
+  expiresAt  DateTime
+  usedAt     DateTime?
+  createdAt  DateTime  @default(now())
+
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tokenHash])
+  @@index([userId])
+}
+
+model EmailLog {
+  id        String   @id @default(cuid())
+  to        String
+  template  String
+  payload   Json?
+  status    String   // "sent", "failed", "pending"
+  sentAt    DateTime?
+  userId    String?
+  createdAt DateTime @default(now())
+
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([to])
+  @@index([userId])
+  @@index([status])
+}
+
+model AuditLog {
+  id          String      @id @default(cuid())
+  groupId     String?
+  actorUserId String?
+  action      AuditAction
+  payload     Json?
+  createdAt   DateTime    @default(now())
+
+  group       Group?      @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  actorUser   User?       @relation("ActorUser", fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([groupId])
+  @@index([actorUserId])
+  @@index([action])
+  @@index([createdAt])
+}
+

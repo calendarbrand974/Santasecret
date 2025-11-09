@@ -1,0 +1,39 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { requireAdmin } from '@/lib/rbac'
+import { prisma } from '@/lib/prisma'
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string; pairId: string } }
+) {
+  try {
+    await requireAdmin(params.id)
+    
+    // Vérifier que la paire appartient au groupe
+    const forbiddenPair = await prisma.forbiddenPair.findFirst({
+      where: {
+        id: params.pairId,
+        groupId: params.id,
+      },
+    })
+    
+    if (!forbiddenPair) {
+      return NextResponse.json(
+        { error: 'Paire interdite non trouvée' },
+        { status: 404 }
+      )
+    }
+    
+    await prisma.forbiddenPair.delete({
+      where: { id: params.pairId },
+    })
+    
+    return NextResponse.json({ success: true })
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error.message || 'Erreur serveur' },
+      { status: error.message === 'Unauthorized' ? 401 : 500 }
+    )
+  }
+}
+
