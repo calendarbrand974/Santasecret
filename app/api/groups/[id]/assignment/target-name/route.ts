@@ -3,6 +3,13 @@ import { requireGroupMember } from '@/lib/rbac'
 import { prisma } from '@/lib/prisma'
 import { isDrawOpen } from '@/lib/tz'
 
+// Forcer Node.js runtime (requis pour Prisma en serverless)
+export const runtime = 'nodejs'
+// Empêcher la précompilation (évite les requêtes DB pendant le build)
+export const dynamic = 'force-dynamic'
+
+
+
 /**
  * Récupère le nom du Gâté secret SANS révéler l'assignation dans la DB
  * Utilisé pour afficher le scratch card avant la révélation officielle

@@ -5,6 +5,13 @@ import { generateMatching, generateSeed } from '@/lib/matching'
 import { sendPushToGroup } from '@/lib/push'
 import { sendEmail } from '@/lib/email'
 
+// Forcer Node.js runtime (requis pour Prisma en serverless)
+export const runtime = 'nodejs'
+// Empêcher la précompilation (évite les requêtes DB pendant le build)
+export const dynamic = 'force-dynamic'
+
+
+
 /**
  * Déclenche manuellement le tirage au sort pour un groupe
  * Accessible uniquement aux admins

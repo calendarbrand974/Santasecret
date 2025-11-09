@@ -4,6 +4,11 @@ import { prisma } from '@/lib/prisma'
 import { profileSchema, validate } from '@/lib/validation'
 import { sanitizeString } from '@/lib/sanitize'
 
+// Forcer Node.js runtime (requis pour Prisma en serverless)
+export const runtime = 'nodejs'
+// Empêcher la précompilation (évite les requêtes DB pendant le build)
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   try {
     const { userId } = await requireAuth()

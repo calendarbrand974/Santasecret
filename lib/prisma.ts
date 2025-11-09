@@ -50,20 +50,9 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-// Tester la connexion au démarrage (de manière asynchrone)
-setTimeout(async () => {
-  try {
-    await prisma.$connect()
-    console.log('✅ [PRISMA] Successfully connected to database')
-  } catch (error: any) {
-    console.error('❌ [PRISMA] Failed to connect to database:', error)
-    console.error('❌ [PRISMA] Error details:', {
-      message: error.message,
-      code: error.code,
-      meta: error.meta,
-    })
-  }
-}, 100)
+// Ne pas tester la connexion au démarrage en serverless (Vercel)
+// La connexion sera établie à la première requête
+// Le setTimeout peut causer des problèmes en environnement serverless
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
 

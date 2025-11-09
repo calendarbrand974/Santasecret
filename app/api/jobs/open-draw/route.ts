@@ -5,6 +5,13 @@ import { isDrawOpen } from '@/lib/tz'
 import { sendPushToGroup } from '@/lib/push'
 import { sendEmail } from '@/lib/email'
 
+// Forcer Node.js runtime (requis pour Prisma en serverless)
+export const runtime = 'nodejs'
+// Empêcher la précompilation (évite les requêtes DB pendant le build)
+export const dynamic = 'force-dynamic'
+
+
+
 /**
  * Job d'ouverture du tirage
  * À appeler via cron ou manuellement avec un secret

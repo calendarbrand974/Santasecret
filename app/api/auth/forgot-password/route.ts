@@ -5,6 +5,13 @@ import { sendEmail } from '@/lib/email'
 import { forgotPasswordSchema, validate } from '@/lib/validation'
 import { rateLimit, getClientIp } from '@/lib/rate-limit'
 
+// Forcer Node.js runtime (requis pour Prisma en serverless)
+export const runtime = 'nodejs'
+// Empêcher la précompilation (évite les requêtes DB pendant le build)
+export const dynamic = 'force-dynamic'
+
+
+
 export async function POST(request: NextRequest) {
   try {
     // Rate limiting

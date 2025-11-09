@@ -7,6 +7,11 @@ import { z } from 'zod'
 import { sanitizeString } from '@/lib/sanitize'
 import { sendEmail } from '@/lib/email'
 
+// Forcer Node.js runtime (requis pour Prisma en serverless)
+export const runtime = 'nodejs'
+// Empêcher la précompilation (évite les requêtes DB pendant le build)
+export const dynamic = 'force-dynamic'
+
 const createMemberSchema = z.object({
   displayName: z.string().min(2).max(100).optional(),
   email: z.string().email().max(255).optional().nullable(),
