@@ -70,9 +70,11 @@ export async function POST(
     const [giver, receiver] = await Promise.all([
       prisma.groupMember.findFirst({
         where: { id: data.giverId, groupId: params.id },
+        include: { user: true },
       }),
       prisma.groupMember.findFirst({
         where: { id: data.receiverId, groupId: params.id },
+        include: { user: true },
       }),
     ])
     
