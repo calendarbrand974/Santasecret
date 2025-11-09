@@ -38,7 +38,11 @@ export async function POST(request: NextRequest) {
     
     const { code } = validation.data
     
+    console.log('[JOIN API] Attempting to find member with code:', code)
+    console.log('[JOIN API] DATABASE_URL defined:', !!process.env.DATABASE_URL)
+    
     // Trouver le membre avec ce code (optimisé avec select)
+    console.log('[JOIN API] Executing prisma.groupMember.findUnique...')
     const member = await prisma.groupMember.findUnique({
       where: { joinCode: code.toUpperCase() },
       select: {
@@ -118,7 +122,12 @@ export async function POST(request: NextRequest) {
       needsProfile,
     })
   } catch (error: any) {
-    console.error('Join error:', error)
+    console.error('[JOIN API] Error:', error)
+    console.error('[JOIN API] Error name:', error.name)
+    console.error('[JOIN API] Error message:', error.message)
+    console.error('[JOIN API] Error code:', error.code)
+    console.error('[JOIN API] Error meta:', error.meta)
+    console.error('[JOIN API] Error stack:', error.stack)
     return NextResponse.json(
       { error: error.message || 'Erreur serveur' },
       { status: 500 }

@@ -36,7 +36,11 @@ export async function POST(request: NextRequest) {
     
     const { email, password } = validation.data
     
+    console.log('[LOGIN API] Attempting to find user with email:', email)
+    console.log('[LOGIN API] DATABASE_URL defined:', !!process.env.DATABASE_URL)
+    
     // Trouver l'utilisateur par email
+    console.log('[LOGIN API] Executing prisma.user.findUnique...')
     const user = await prisma.user.findUnique({
       where: { email },
       select: {
@@ -59,6 +63,9 @@ export async function POST(request: NextRequest) {
         },
       },
     })
+    
+    console.log('[LOGIN API] User found:', !!user)
+    console.log('[LOGIN API] User ID:', user?.id)
     
     if (!user) {
       return NextResponse.json(
@@ -111,7 +118,12 @@ export async function POST(request: NextRequest) {
       needsProfile,
     })
   } catch (error: any) {
-    console.error('Login error:', error)
+    console.error('[LOGIN API] Error:', error)
+    console.error('[LOGIN API] Error name:', error.name)
+    console.error('[LOGIN API] Error message:', error.message)
+    console.error('[LOGIN API] Error code:', error.code)
+    console.error('[LOGIN API] Error meta:', error.meta)
+    console.error('[LOGIN API] Error stack:', error.stack)
     return NextResponse.json(
       { error: error.message || 'Erreur serveur' },
       { status: 500 }
