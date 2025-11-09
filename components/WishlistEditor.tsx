@@ -606,35 +606,29 @@ export function WishlistEditor({ initialFreeText = '', initialItems = [], groupI
             <label className="block mb-2 text-sm font-medium text-gray-300">
               Image (optionnel)
             </label>
-            <div className="flex gap-2">
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                capture="environment"
-                onChange={handleFileChange}
-                className="hidden"
-                id="image-upload"
-                disabled={uploadingImage}
-              />
-              <label
-                htmlFor="image-upload"
-                className="flex-1 cursor-pointer"
-              >
-                <Button
-                  type="button"
-                  variant="secondary"
-                  className="w-full"
-                  disabled={uploadingImage}
-                >
-                  {uploadingImage ? (
-                    <>📤 Upload en cours...</>
-                  ) : (
-                    <>📷 Prendre une photo / Choisir une image</>
-                  )}
-                </Button>
-              </label>
-            </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              onChange={handleFileChange}
+              className="hidden"
+              id="image-upload"
+              disabled={uploadingImage}
+            />
+            <Button
+              type="button"
+              variant="secondary"
+              className="w-full"
+              disabled={uploadingImage}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              {uploadingImage ? (
+                <>📤 Upload en cours...</>
+              ) : (
+                <>📷 Prendre une photo / Choisir une image</>
+              )}
+            </Button>
             <p className="mt-1 text-xs text-gray-400">
               Ou entrez une URL d'image ci-dessous
             </p>
