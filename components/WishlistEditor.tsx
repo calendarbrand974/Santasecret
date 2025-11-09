@@ -42,6 +42,10 @@ export function WishlistEditor({ initialFreeText = '', initialItems = [], groupI
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [modalItem, setModalItem] = useState<WishlistItem>({ title: '' })
   
+  // Upload state
+  const [uploadingImage, setUploadingImage] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  
   useEffect(() => {
     setFreeText(initialFreeText)
     setItems(initialItems.map((item, idx) => ({ ...item, order: item.order ?? idx })))
@@ -264,6 +268,55 @@ export function WishlistEditor({ initialFreeText = '', initialItems = [], groupI
       return domain
     } catch {
       return url.length > 30 ? url.substring(0, 27) + '...' : url
+    }
+  }
+  
+  // Fonction pour uploader une image
+  const handleImageUpload = async (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      toast.addToast('Veuillez sélectionner une image', 'error')
+      return
+    }
+    
+    if (file.size > 5 * 1024 * 1024) {
+      toast.addToast('L\'image est trop volumineuse (max 5 MB)', 'error')
+      return
+    }
+    
+    setUploadingImage(true)
+    try {
+      const formData = new FormData()
+      formData.append('image', file)
+      
+      const response = await fetch('/api/upload/image', {
+        method: 'POST',
+        body: formData,
+      })
+      
+      if (!response.ok) {
+        const data = await response.json()
+        throw new Error(data.error || 'Erreur lors de l\'upload')
+      }
+      
+      const data = await response.json()
+      setModalItem({ ...modalItem, imageUrl: data.url })
+      toast.addToast('Image uploadée avec succès !', 'success')
+    } catch (error: any) {
+      toast.addToast(error.message || 'Erreur lors de l\'upload de l\'image', 'error')
+    } finally {
+      setUploadingImage(false)
+    }
+  }
+  
+  // Gérer le changement de fichier
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      handleImageUpload(file)
+    }
+    // Réinitialiser l'input pour permettre de sélectionner le même fichier
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
     }
   }
   
@@ -548,6 +601,46 @@ export function WishlistEditor({ initialFreeText = '', initialItems = [], groupI
             onChange={(e) => handleLinkChange(e.target.value)}
           />
           
+          {/* Upload d'image depuis téléphone/galerie */}
+          <div>
+            <label className="block mb-2 text-sm font-medium text-gray-300">
+              Image (optionnel)
+            </label>
+            <div className="flex gap-2">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                onChange={handleFileChange}
+                className="hidden"
+                id="image-upload"
+                disabled={uploadingImage}
+              />
+              <label
+                htmlFor="image-upload"
+                className="flex-1 cursor-pointer"
+              >
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="md"
+                  className="w-full"
+                  disabled={uploadingImage}
+                >
+                  {uploadingImage ? (
+                    <>📤 Upload en cours...</>
+                  ) : (
+                    <>📷 Prendre une photo / Choisir une image</>
+                  )}
+                </Button>
+              </label>
+            </div>
+            <p className="mt-1 text-xs text-gray-400">
+              Ou entrez une URL d'image ci-dessous
+            </p>
+          </div>
+          
           <Input
             label="URL image (optionnel)"
             type="url"
@@ -562,22 +655,34 @@ export function WishlistEditor({ initialFreeText = '', initialItems = [], groupI
               <label className="block mb-2 text-sm font-medium text-gray-300">
                 Aperçu
               </label>
-              <img
-                src={getImageUrl(modalItem.imageUrl)}
-                alt="Aperçu"
-                className="max-w-full h-32 object-contain rounded border border-dark-border"
-                onError={(e) => {
-                  // Essayer l'URL directe si le proxy échoue
-                  const img = e.target as HTMLImageElement
-                  if (img.src.includes('/api/image-proxy')) {
-                    img.src = modalItem.imageUrl || ''
-                  } else {
-                    img.style.display = 'none'
-                  }
-                }}
-                loading="lazy"
-                crossOrigin="anonymous"
-              />
+              <div className="relative">
+                <img
+                  src={getImageUrl(modalItem.imageUrl)}
+                  alt="Aperçu"
+                  className="max-w-full h-32 object-contain rounded border border-dark-border"
+                  onError={(e) => {
+                    // Essayer l'URL directe si le proxy échoue
+                    const img = e.target as HTMLImageElement
+                    if (img.src.includes('/api/image-proxy')) {
+                      img.src = modalItem.imageUrl || ''
+                    } else {
+                      img.style.display = 'none'
+                    }
+                  }}
+                  loading="lazy"
+                  crossOrigin="anonymous"
+                />
+                {modalItem.imageUrl && (
+                  <button
+                    type="button"
+                    onClick={() => setModalItem({ ...modalItem, imageUrl: undefined })}
+                    className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full p-1 text-xs"
+                    title="Supprimer l'image"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
             </div>
           )}
           

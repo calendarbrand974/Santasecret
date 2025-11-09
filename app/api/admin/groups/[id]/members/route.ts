@@ -12,6 +12,9 @@ export const runtime = 'nodejs'
 // Empêcher la précompilation (évite les requêtes DB pendant le build)
 export const dynamic = 'force-dynamic'
 
+// Désactiver la mise en cache (évite SSG/ISR)
+export const revalidate = 0
+
 const createMemberSchema = z.object({
   displayName: z.string().min(2).max(100).optional(),
   email: z.string().email().max(255).optional().nullable(),

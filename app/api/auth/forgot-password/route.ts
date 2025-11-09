@@ -10,6 +10,11 @@ export const runtime = 'nodejs'
 // Empêcher la précompilation (évite les requêtes DB pendant le build)
 export const dynamic = 'force-dynamic'
 
+// Désactiver la mise en cache (évite SSG/ISR)
+export const revalidate = 0
+
+
+
 
 
 export async function POST(request: NextRequest) {

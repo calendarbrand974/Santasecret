@@ -5,13 +5,13 @@
 Utilisez cette chaîne **exacte** sur Vercel (Settings > Environment Variables > DATABASE_URL) :
 
 ```
-postgresql://postgres.wtlvjemlkejcifclafjn:MyNastirith974@aws-1-eu-west-1.pooler.supabase.com:6543/postgres?pgbouncer=true&sslmode=require&connection_limit=1
+postgresql://postgres.wtlvjemlkejcifclafjn:Nouminou02136@aws-1-eu-west-1.pooler.supabase.com:6543/postgres?pgbouncer=true&sslmode=require&connection_limit=1
 ```
 
 ## 📋 Détails de la chaîne
 
-- **User** : `postgres.wtlvjemlkejcifclafjn` (format pooler Supabase)
-- **Password** : `MyNastirith974`
+- **User** : `postgres.wtlvjemlkejcifclafjn` (format pooler Supabase avec project ref - **OBLIGATOIRE**)
+- **Password** : `Nouminou02136`
 - **Host** : `aws-1-eu-west-1.pooler.supabase.com` (pooler Supabase)
 - **Port** : `6543` ✅ (Transaction pooler)
 - **Database** : `postgres`
@@ -20,12 +20,22 @@ postgresql://postgres.wtlvjemlkejcifclafjn:MyNastirith974@aws-1-eu-west-1.pooler
   - `sslmode=require` - **OBLIGATOIRE** pour SSL
   - `connection_limit=1` - Limite les connexions pour serverless
 
-## 🔍 Différences avec l'ancienne chaîne
+## 🔍 Points importants
+
+### Format utilisateur pour Transaction pooler
+
+**✅ CORRECT** : `postgres.wtlvjemlkejcifclafjn` (avec le project ref)
+**❌ INCORRECT** : `postgres` (sans le project ref)
+
+Le format utilisateur pour le Transaction pooler Supabase doit inclure le project ref après `postgres.`
+
+### Différences avec l'ancienne chaîne
 
 | Ancienne | Nouvelle |
 |---------|----------|
-| `postgres:MyNastirith974@db.wtlvjemlkejcifclafjn.supabase.co` | `postgres.wtlvjemlkejcifclafjn:MyNastirith974@aws-1-eu-west-1.pooler.supabase.com` |
-| Host direct | Host pooler (recommandé) |
+| `postgres:password@db.wtlvjemlkejcifclafjn.supabase.co:5432` | `postgres.wtlvjemlkejcifclafjn:password@aws-1-eu-west-1.pooler.supabase.com:6543` |
+| Host direct (port 5432) | Host pooler (port 6543) |
+| Utilisateur simple `postgres` | Utilisateur avec project ref `postgres.wtlvjemlkejcifclafjn` |
 
 ## 📝 Instructions Vercel
 
