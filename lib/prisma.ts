@@ -13,10 +13,16 @@ if (!process.env.DATABASE_URL) {
 // Logger le host de la base de données (sans le mot de passe) pour le débogage
 try {
   const dbUrl = new URL(process.env.DATABASE_URL)
-  console.log(`🔌 [PRISMA] Connecting to database: ${dbUrl.host}:${dbUrl.port || '5432'}`)
+  // dbUrl.host contient déjà le port si présent, donc on l'utilise directement
+  console.log(`🔌 [PRISMA] Connecting to database: ${dbUrl.host}`)
   console.log(`🔌 [PRISMA] Database protocol: ${dbUrl.protocol}`)
   console.log(`🔌 [PRISMA] Database path: ${dbUrl.pathname}`)
   console.log(`🔌 [PRISMA] Database search params: ${dbUrl.search}`)
+  console.log(`🔌 [PRISMA] Database hostname: ${dbUrl.hostname}`)
+  console.log(`🔌 [PRISMA] Database port: ${dbUrl.port || '5432 (default)'}`)
+  // Logger l'URL sans le mot de passe pour vérification
+  const safeUrl = process.env.DATABASE_URL.replace(/:[^:@]+@/, ':****@')
+  console.log(`🔌 [PRISMA] DATABASE_URL (safe): ${safeUrl}`)
 } catch (error) {
   console.error('❌ [PRISMA] Error parsing DATABASE_URL:', error)
 }
