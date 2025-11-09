@@ -624,7 +624,6 @@ export function WishlistEditor({ initialFreeText = '', initialItems = [], groupI
                 <Button
                   type="button"
                   variant="secondary"
-                  size="md"
                   className="w-full"
                   disabled={uploadingImage}
                 >
