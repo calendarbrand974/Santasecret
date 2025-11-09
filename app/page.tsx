@@ -31,13 +31,17 @@ export default function HomePage() {
     try {
       let response: Response
       
+      console.log('[LOGIN] Mode:', mode)
+      
       if (mode === 'code') {
+        console.log('[LOGIN] Tentative de connexion avec code:', code)
         response = await fetch('/api/auth/join', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ code }),
         })
       } else {
+        console.log('[LOGIN] Tentative de connexion avec email:', email)
         response = await fetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -45,9 +49,15 @@ export default function HomePage() {
         })
       }
       
+      console.log('[LOGIN] Réponse status:', response.status)
+      
       if (!response.ok) {
         const data = await response.json()
-        throw new Error(data.error || mode === 'code' ? 'Code invalide' : 'Email ou mot de passe incorrect')
+        console.log('[LOGIN] Erreur API:', data)
+        // Utiliser l'erreur de l'API si elle existe, sinon utiliser le message par défaut selon le mode
+        const errorMessage = data.error || (mode === 'code' ? 'Code invalide' : 'Email ou mot de passe incorrect')
+        console.log('[LOGIN] Message d'erreur final:', errorMessage)
+        throw new Error(errorMessage)
       }
       
       const data = await response.json()
