@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import Image from 'next/image'
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { Card } from '@/components/Card'
@@ -87,15 +88,15 @@ export default function HomePage() {
       <div className="container mx-auto px-4 py-12 pt-24">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12 relative z-10">
-            <div className="text-6xl mb-4 animate-bounce" style={{ animationDuration: '2s' }}>
-              🎅
+            <div className="flex justify-center mb-4">
+              <Image
+                src="/logo.png"
+                alt="Secret Santa Logo"
+                width={250}
+                height={250}
+                priority
+              />
             </div>
-            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-white via-primary to-white bg-clip-text text-transparent drop-shadow-lg" style={{ textShadow: '0 0 20px rgba(255, 255, 255, 0.5)' }}>
-              Secret Santa
-            </h1>
-            <p className="text-xl text-white/90 mb-8">
-              Organisez votre tirage au sort de Noël en famille ✨
-            </p>
             <div className="mb-8">
               <ChristmasCountdown />
             </div>

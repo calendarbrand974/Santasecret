@@ -9,6 +9,10 @@ import { ChristmasGarland } from "@/components/ChristmasGarland";
 export const metadata: Metadata = {
   title: "Secret Santa - Famille 2025",
   description: "Application Secret Santa pour la famille",
+  icons: {
+    icon: '/logo.png',
+    apple: '/logo.png',
+  },
 };
 
 export default function RootLayout({

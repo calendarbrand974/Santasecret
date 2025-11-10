@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { getSession } from '@/lib/session'
 import { prisma } from '@/lib/prisma'
 import { HeaderGroup } from '@/components/HeaderGroup'
@@ -40,6 +41,15 @@ export default async function AppPage() {
       <div className="container mx-auto px-4 py-8 pt-24">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8 relative z-10">
+            <div className="flex justify-center mb-4">
+              <Image
+                src="/logo.png"
+                alt="Secret Santa Logo"
+                width={100}
+                height={100}
+                priority
+              />
+            </div>
             <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg" style={{ textShadow: '0 0 20px rgba(255, 255, 255, 0.5)' }}>Bienvenue !</h1>
             <p className="text-xl text-white/90">
               Gérez votre wishlist et découvrez votre Gâté secret
