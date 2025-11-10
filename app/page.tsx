@@ -83,17 +83,17 @@ export default function HomePage() {
   }
   
   return (
-    <div className="min-h-screen bg-dark-bg">
-      <div className="container mx-auto px-4 py-12">
+    <div className="min-h-screen bg-dark-bg relative">
+      <div className="container mx-auto px-4 py-12 pt-24">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12 relative z-10">
             <div className="text-6xl mb-4 animate-bounce" style={{ animationDuration: '2s' }}>
               🎅
             </div>
-            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-gold to-accent bg-clip-text text-transparent">
+            <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-white via-primary to-white bg-clip-text text-transparent drop-shadow-lg" style={{ textShadow: '0 0 20px rgba(255, 255, 255, 0.5)' }}>
               Secret Santa
             </h1>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="text-xl text-white/90 mb-8">
               Organisez votre tirage au sort de Noël en famille ✨
             </p>
             <div className="mb-8">
@@ -104,18 +104,22 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
             <Card title="Connexion">
               {/* Tabs pour basculer entre code et email */}
-              <div className="flex gap-2 mb-6 border-b border-dark-border">
+              <div className="flex gap-2 mb-6 border-b-2 border-white/40 relative">
                 <button
                   type="button"
                   onClick={() => {
                     setMode('code')
                     setError(null)
                   }}
-                  className={`px-4 py-2 font-medium transition-colors ${
+                  className={`px-4 py-3 font-semibold transition-all rounded-t-lg relative ${
                     mode === 'code'
-                      ? 'text-primary border-b-2 border-primary'
-                      : 'text-gray-400 hover:text-gray-300'
+                      ? 'bg-white text-primary shadow-lg'
+                      : 'text-white/50 hover:text-white/80 hover:bg-white/5'
                   }`}
+                  style={mode === 'code' ? {
+                    borderBottom: '4px solid white',
+                    marginBottom: '-2px',
+                  } : {}}
                 >
                   Code de participation
                 </button>
@@ -125,11 +129,15 @@ export default function HomePage() {
                     setMode('email')
                     setError(null)
                   }}
-                  className={`px-4 py-2 font-medium transition-colors ${
+                  className={`px-4 py-3 font-semibold transition-all rounded-t-lg relative ${
                     mode === 'email'
-                      ? 'text-primary border-b-2 border-primary'
-                      : 'text-gray-400 hover:text-gray-300'
+                      ? 'bg-white text-primary shadow-lg'
+                      : 'text-white/50 hover:text-white/80 hover:bg-white/5'
                   }`}
+                  style={mode === 'email' ? {
+                    borderBottom: '4px solid white',
+                    marginBottom: '-2px',
+                  } : {}}
                 >
                   Email / Mot de passe
                 </button>
@@ -184,7 +192,7 @@ export default function HomePage() {
                         </Button>
               </form>
               
-              <div className="mt-4 text-center text-sm text-gray-400">
+              <div className="mt-4 text-center text-sm text-white/80">
                 {mode === 'code' ? (
                   <>
                     <p>Vous n'avez pas de code ?</p>
@@ -200,7 +208,7 @@ export default function HomePage() {
             </Card>
             
             <Card title="Comment ça marche ?">
-              <div className="space-y-4 text-gray-300">
+              <div className="space-y-4 text-white/90">
                 <div>
                   <h3 className="font-semibold text-white mb-2">1. Rejoignez votre groupe</h3>
                   <p className="text-sm">Utilisez le code de participation fourni par l'organisateur.</p>
@@ -222,14 +230,14 @@ export default function HomePage() {
           </div>
           
           <Card title="Informations importantes">
-            <div className="space-y-2 text-gray-300">
+            <div className="space-y-2 text-white/90">
               <p>
                 <strong className="text-white">Fuseau horaire :</strong> Indian/Reunion (UTC+4)
               </p>
               <p>
                 <strong className="text-white">Date d'ouverture :</strong> 11 novembre 2025 à 11:00
               </p>
-              <p className="text-sm text-gray-400 mt-4">
+              <p className="text-sm text-white/80 mt-4">
                 Le tirage respecte les contraintes : personne ne peut se tirer elle-même, 
                 et les membres d'un couple ne peuvent pas se tirer entre eux.
               </p>

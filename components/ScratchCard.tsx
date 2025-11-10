@@ -41,30 +41,30 @@ export function ScratchCard({ targetName, onReveal }: ScratchCardProps) {
       // Réinitialiser le canvas (effacer tout)
       ctx.clearRect(0, 0, width, height)
 
-      // Fonction pour dessiner le fond grattable (doré)
+      // Fonction pour dessiner le fond grattable (blanc nacré avec motifs verts)
       const drawBackground = () => {
-        // Créer un dégradé doré
+        // Créer un dégradé blanc nacré avec teinte verte
         const gradient = ctx.createLinearGradient(0, 0, width, height)
-        gradient.addColorStop(0, '#FFD700') // Or clair
-        gradient.addColorStop(0.3, '#FFA500') // Orange doré
-        gradient.addColorStop(0.5, '#FF8C00') // Orange foncé
-        gradient.addColorStop(0.7, '#FFA500') // Orange doré
-        gradient.addColorStop(1, '#FFD700') // Or clair
+        gradient.addColorStop(0, '#ffffff') // Blanc
+        gradient.addColorStop(0.3, '#f0fff4') // Blanc verdâtre clair
+        gradient.addColorStop(0.5, '#e6f7ed') // Vert très clair
+        gradient.addColorStop(0.7, '#f0fff4') // Blanc verdâtre clair
+        gradient.addColorStop(1, '#ffffff') // Blanc
         ctx.fillStyle = gradient
         ctx.fillRect(0, 0, width, height)
         
         // Ajouter un effet de brillance
         const shineGradient = ctx.createLinearGradient(0, 0, width, 0)
         shineGradient.addColorStop(0, 'rgba(255, 255, 255, 0)')
-        shineGradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.3)')
-        shineGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.5)')
-        shineGradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.3)')
+        shineGradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.4)')
+        shineGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.6)')
+        shineGradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.4)')
         shineGradient.addColorStop(1, 'rgba(255, 255, 255, 0)')
         ctx.fillStyle = shineGradient
         ctx.fillRect(0, 0, width, height / 3)
         
-        // Ajouter des motifs de Noël en or foncé
-        ctx.fillStyle = '#B8860B' // Or foncé
+        // Ajouter des motifs de Noël en vert
+        ctx.fillStyle = '#0d7d4d' // Vert sapin
         ctx.font = 'bold 40px Arial'
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
@@ -218,14 +218,14 @@ export function ScratchCard({ targetName, onReveal }: ScratchCardProps) {
 
   return (
     <div className="relative w-full">
-      <div className="relative bg-gradient-to-br from-red-600 to-red-800 rounded-lg p-8 shadow-2xl border-4 border-yellow-400 min-h-[300px] overflow-hidden">
+      <div className="relative bg-gradient-to-br from-accent to-red-800 rounded-lg p-8 shadow-2xl border-4 border-primary min-h-[300px] overflow-hidden">
         {/* Contenu révélé (caché en dessous, visible progressivement) */}
         <div className="text-center relative z-0">
           <div className="text-6xl mb-4">🎁</div>
           <h2 className="text-3xl font-bold text-white mb-2">
             Votre Gâté secret est :
           </h2>
-          <div className="text-4xl font-bold text-yellow-300 mb-4">
+          <div className="text-4xl font-bold text-white mb-4 drop-shadow-lg" style={{ textShadow: '0 0 20px rgba(255, 255, 255, 0.8)' }}>
             {targetName}
           </div>
           <div className="text-white text-lg">

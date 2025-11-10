@@ -130,8 +130,8 @@ export function ChristmasRevealAnimation() {
                 top: `${particle.y}%`,
                 fontSize: `${particle.size}px`,
                 opacity: particle.opacity,
-                color: '#ffd700',
-                filter: 'drop-shadow(0 0 4px rgba(255, 215, 0, 0.8))',
+                color: '#ffffff',
+                filter: 'drop-shadow(0 0 4px rgba(255, 255, 255, 0.8))',
                 transform: `rotate(${particle.y * 3}deg) scale(${0.8 + Math.sin(Date.now() * 0.003 + particle.id) * 0.2})`,
                 transition: 'all 0.1s linear',
               }}
@@ -149,8 +149,8 @@ export function ChristmasRevealAnimation() {
                 top: `${particle.y}%`,
                 fontSize: `${particle.size}px`,
                 opacity: particle.opacity,
-                color: '#ffd700',
-                filter: 'drop-shadow(0 0 3px rgba(255, 215, 0, 0.6))',
+                color: '#ffffff',
+                filter: 'drop-shadow(0 0 3px rgba(255, 255, 255, 0.6))',
                 transform: `rotate(${particle.y * 4}deg)`,
                 transition: 'all 0.1s linear',
               }}

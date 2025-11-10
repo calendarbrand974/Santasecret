@@ -4,6 +4,7 @@ import Script from "next/script";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ToastProvider } from "@/components/Toast";
 import { Snowflakes } from "@/components/Snowflakes";
+import { ChristmasGarland } from "@/components/ChristmasGarland";
 
 export const metadata: Metadata = {
   title: "Secret Santa - Famille 2025",
@@ -19,11 +20,14 @@ export default function RootLayout({
     <html lang="fr">
       <body>
         <Snowflakes />
-        <ErrorBoundary>
-          <ToastProvider>
-            {children}
-          </ToastProvider>
-        </ErrorBoundary>
+        <div className="relative min-h-screen">
+          <ChristmasGarland />
+          <ErrorBoundary>
+            <ToastProvider>
+              {children}
+            </ToastProvider>
+          </ErrorBoundary>
+        </div>
         <Script id="register-sw" strategy="afterInteractive">
           {`
             if ('serviceWorker' in navigator) {

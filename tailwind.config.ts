@@ -10,17 +10,15 @@ const config: Config = {
     extend: {
       colors: {
         primary: "#0d7d4d",
-        accent: "#dc2626",
-        gold: "#ffd700",
+        accent: "#c41e3a",
         christmas: {
           red: "#c41e3a",
           green: "#0d7d4d",
-          gold: "#ffd700",
         },
         dark: {
-          bg: "#1a0a0a",
-          surface: "#2d1414",
-          border: "#3d1f1f",
+          bg: "#c41e3a",
+          surface: "rgba(196, 30, 58, 0.95)",
+          border: "rgba(13, 125, 77, 0.6)",
         },
       },
     },

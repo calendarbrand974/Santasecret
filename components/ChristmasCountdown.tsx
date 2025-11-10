@@ -77,21 +77,21 @@ export function ChristmasCountdown() {
         <span className="text-2xl">🎄</span>
       </div>
       <div className="flex gap-4 justify-center flex-wrap">
-        <div className="flex flex-col items-center bg-dark-surface rounded-lg p-4 min-w-[80px] border border-primary/50 shadow-md hover:scale-105 transition-transform" style={{ boxShadow: '0 0 15px rgba(13, 125, 77, 0.3), 0 0 8px rgba(220, 38, 38, 0.2)' }}>
-          <div className="text-4xl font-bold bg-gradient-to-br from-primary via-gold to-accent bg-clip-text text-transparent">{days}</div>
-          <div className="text-sm text-gray-400 mt-1">jour{days > 1 ? 's' : ''}</div>
+        <div className="flex flex-col items-center bg-primary/95 rounded-lg p-4 min-w-[80px] border-2 border-white shadow-md hover:scale-105 transition-transform" style={{ boxShadow: '0 0 20px rgba(13, 125, 77, 0.4), 0 0 10px rgba(255, 255, 255, 0.3)' }}>
+          <div className="text-4xl font-bold text-white">{days}</div>
+          <div className="text-sm text-white/90 mt-1 font-semibold">jour{days > 1 ? 's' : ''}</div>
         </div>
-        <div className="flex flex-col items-center bg-dark-surface rounded-lg p-4 min-w-[80px] border border-accent/50 shadow-md hover:scale-105 transition-transform" style={{ boxShadow: '0 0 15px rgba(220, 38, 38, 0.3), 0 0 8px rgba(13, 125, 77, 0.2)' }}>
-          <div className="text-4xl font-bold bg-gradient-to-br from-accent via-gold to-primary bg-clip-text text-transparent">{hours}</div>
-          <div className="text-sm text-gray-400 mt-1">heure{hours > 1 ? 's' : ''}</div>
+        <div className="flex flex-col items-center bg-primary/95 rounded-lg p-4 min-w-[80px] border-2 border-white shadow-md hover:scale-105 transition-transform" style={{ boxShadow: '0 0 20px rgba(13, 125, 77, 0.4), 0 0 10px rgba(255, 255, 255, 0.3)' }}>
+          <div className="text-4xl font-bold text-white">{hours}</div>
+          <div className="text-sm text-white/90 mt-1 font-semibold">heure{hours > 1 ? 's' : ''}</div>
         </div>
-        <div className="flex flex-col items-center bg-dark-surface rounded-lg p-4 min-w-[80px] border border-primary/50 shadow-md hover:scale-105 transition-transform" style={{ boxShadow: '0 0 15px rgba(13, 125, 77, 0.3), 0 0 8px rgba(220, 38, 38, 0.2)' }}>
-          <div className="text-4xl font-bold bg-gradient-to-br from-primary via-gold to-accent bg-clip-text text-transparent">{minutes}</div>
-          <div className="text-sm text-gray-400 mt-1">minute{minutes > 1 ? 's' : ''}</div>
+        <div className="flex flex-col items-center bg-primary/95 rounded-lg p-4 min-w-[80px] border-2 border-white shadow-md hover:scale-105 transition-transform" style={{ boxShadow: '0 0 20px rgba(13, 125, 77, 0.4), 0 0 10px rgba(255, 255, 255, 0.3)' }}>
+          <div className="text-4xl font-bold text-white">{minutes}</div>
+          <div className="text-sm text-white/90 mt-1 font-semibold">minute{minutes > 1 ? 's' : ''}</div>
         </div>
-        <div className="flex flex-col items-center bg-dark-surface rounded-lg p-4 min-w-[80px] border border-accent/50 shadow-md hover:scale-105 transition-transform" style={{ boxShadow: '0 0 15px rgba(220, 38, 38, 0.3), 0 0 8px rgba(13, 125, 77, 0.2)' }}>
-          <div className="text-4xl font-bold bg-gradient-to-br from-accent via-gold to-primary bg-clip-text text-transparent">{seconds}</div>
-          <div className="text-sm text-gray-400 mt-1">seconde{seconds > 1 ? 's' : ''}</div>
+        <div className="flex flex-col items-center bg-primary/95 rounded-lg p-4 min-w-[80px] border-2 border-white shadow-md hover:scale-105 transition-transform" style={{ boxShadow: '0 0 20px rgba(13, 125, 77, 0.4), 0 0 10px rgba(255, 255, 255, 0.3)' }}>
+          <div className="text-4xl font-bold text-white">{seconds}</div>
+          <div className="text-sm text-white/90 mt-1 font-semibold">seconde{seconds > 1 ? 's' : ''}</div>
         </div>
       </div>
     </div>

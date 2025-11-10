@@ -15,7 +15,7 @@ interface HeaderGroupProps {
 
 export function HeaderGroup({ group, isAdmin }: HeaderGroupProps) {
   return (
-    <header className="bg-dark-surface border-b border-dark-border">
+    <header className="bg-white/10 backdrop-blur-md border-b border-white/20 relative z-20">
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-end items-center flex-wrap gap-4">
           <nav className="flex gap-2 items-center flex-wrap">
