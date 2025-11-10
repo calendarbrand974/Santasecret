@@ -332,7 +332,7 @@ export function MembersTab({ groupId }: MembersTabProps) {
                   <td className="p-3 text-gray-400">{member.email || '-'}</td>
                   <td className="p-3">
                     <span className={`px-2 py-1 rounded text-xs ${
-                      member.role === 'ADMIN' ? 'bg-primary/20 text-primary' : 'bg-gray-700 text-gray-300'
+                      member.role === 'ADMIN' ? 'bg-primary/20 text-white' : 'bg-gray-700 text-gray-300'
                     }`}>
                       {member.role}
                     </span>
@@ -349,7 +349,7 @@ export function MembersTab({ groupId }: MembersTabProps) {
                       <span className="font-mono text-sm">{member.joinCode}</span>
                       <button
                         onClick={() => handleCopyCode(member.joinCode)}
-                        className="text-gray-400 hover:text-primary transition-colors"
+                        className="text-gray-400 hover:text-white transition-colors"
                         title="Copier le code"
                       >
                         {copiedCode === member.joinCode ? '✓' : '📋'}
@@ -484,7 +484,7 @@ export function MembersTab({ groupId }: MembersTabProps) {
                                   href={item.link}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="text-primary hover:underline"
+                                  className="text-white hover:underline"
                                 >
                                   Voir le lien →
                                 </a>
@@ -561,7 +561,7 @@ export function MembersTab({ groupId }: MembersTabProps) {
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Rôle</span>
                   <span className={`px-2 py-1 rounded text-xs ${
-                    profileData.member.role === 'ADMIN' ? 'bg-primary/20 text-primary' : 'bg-gray-700 text-gray-300'
+                    profileData.member.role === 'ADMIN' ? 'bg-primary/20 text-white' : 'bg-gray-700 text-gray-300'
                   }`}>
                     {profileData.member.role}
                   </span>

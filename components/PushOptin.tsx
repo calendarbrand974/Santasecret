@@ -116,7 +116,7 @@ export function PushOptin({ groupMemberId }: PushOptinProps) {
         
         {isSubscribed ? (
           <div>
-            <p className="text-sm text-primary mb-2">✓ Notifications activées</p>
+            <p className="text-sm text-white mb-2">✓ Notifications activées</p>
             <Button variant="secondary" onClick={unsubscribe} disabled={loading} className="w-full">
               {loading ? '⏳ Désabonnement...' : <>🔕 Désactiver les notifications</>}
             </Button>

@@ -178,7 +178,7 @@ export function ProfileForm({ user, groupId }: ProfileFormProps) {
           <div className="flex items-start gap-3">
             <div className="text-2xl">👋</div>
             <div>
-              <h3 className="font-semibold text-primary mb-1">Bienvenue !</h3>
+              <h3 className="font-semibold text-white mb-1">Bienvenue !</h3>
               <p className="text-sm text-gray-300">
                 Complétez votre profil pour commencer. Vous pourrez modifier ces informations plus tard.
               </p>

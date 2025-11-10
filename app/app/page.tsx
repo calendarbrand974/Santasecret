@@ -47,31 +47,35 @@ export default async function AppPage() {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-            <Card className="text-center">
-              <div className="text-5xl mb-4">📝</div>
-              <h2 className="text-xl font-bold mb-2 text-white">Ma Wishlist</h2>
-              <p className="text-white/90 mb-4">
-                Remplissez votre liste de souhaits
-              </p>
-              <Link href="/app/wishlist">
-                <Button className="w-full">
-                  📝 Accéder à ma Wishlist
-                </Button>
-              </Link>
-            </Card>
+            <Link href="/app/wishlist" className="block">
+              <Card className="text-center cursor-pointer hover:scale-105 transition-transform">
+                <div className="text-5xl mb-4">📝</div>
+                <h2 className="text-xl font-bold mb-2 text-white">Ma Wishlist</h2>
+                <p className="text-white/90 mb-4">
+                  Remplissez votre liste de souhaits
+                </p>
+                <div className="w-full pointer-events-none">
+                  <Button className="w-full pointer-events-none">
+                    📝 Accéder à ma Wishlist
+                  </Button>
+                </div>
+              </Card>
+            </Link>
             
-            <Card className="text-center">
-              <div className="text-5xl mb-4">🎁</div>
-              <h2 className="text-xl font-bold mb-2 text-white">Mon Gâté secret</h2>
-              <p className="text-white/90 mb-4">
-                Découvrez votre Gâté secret
-              </p>
-              <Link href="/app/draw">
-                <Button className="w-full">
-                  🎁 Voir mon Gâté secret
-                </Button>
-              </Link>
-            </Card>
+            <Link href="/app/draw" className="block">
+              <Card className="text-center cursor-pointer hover:scale-105 transition-transform">
+                <div className="text-5xl mb-4">🎁</div>
+                <h2 className="text-xl font-bold mb-2 text-white">Mon Gâté secret</h2>
+                <p className="text-white/90 mb-4">
+                  Découvrez votre Gâté secret
+                </p>
+                <div className="w-full pointer-events-none">
+                  <Button className="w-full pointer-events-none">
+                    🎁 Voir mon Gâté secret
+                  </Button>
+                </div>
+              </Card>
+            </Link>
           </div>
         </div>
       </div>

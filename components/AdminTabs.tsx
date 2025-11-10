@@ -20,7 +20,7 @@ export function AdminTabs({ groupId }: AdminTabsProps) {
           onClick={() => setActiveTab('members')}
           className={`px-4 py-2 font-medium transition-colors ${
             activeTab === 'members'
-              ? 'text-primary border-b-2 border-primary'
+              ? 'text-white border-b-2 border-white'
               : 'text-gray-400 hover:text-white'
           }`}
         >
@@ -30,7 +30,7 @@ export function AdminTabs({ groupId }: AdminTabsProps) {
           onClick={() => setActiveTab('pairs')}
           className={`px-4 py-2 font-medium transition-colors ${
             activeTab === 'pairs'
-              ? 'text-primary border-b-2 border-primary'
+              ? 'text-white border-b-2 border-white'
               : 'text-gray-400 hover:text-white'
           }`}
         >
@@ -40,7 +40,7 @@ export function AdminTabs({ groupId }: AdminTabsProps) {
           onClick={() => setActiveTab('audit')}
           className={`px-4 py-2 font-medium transition-colors ${
             activeTab === 'audit'
-              ? 'text-primary border-b-2 border-primary'
+              ? 'text-white border-b-2 border-white'
               : 'text-gray-400 hover:text-white'
           }`}
         >
@@ -50,7 +50,7 @@ export function AdminTabs({ groupId }: AdminTabsProps) {
           onClick={() => setActiveTab('settings')}
           className={`px-4 py-2 font-medium transition-colors ${
             activeTab === 'settings'
-              ? 'text-primary border-b-2 border-primary'
+              ? 'text-white border-b-2 border-white'
               : 'text-gray-400 hover:text-white'
           }`}
         >

@@ -47,7 +47,7 @@ export default async function AdminPage({
       <HeaderGroup group={group} isAdmin={true} />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold mb-6 text-primary">
+          <h1 className="text-3xl font-bold mb-6 text-white">
             Administration
           </h1>
           <AdminTabs groupId={params.groupId} />

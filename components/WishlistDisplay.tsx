@@ -37,7 +37,7 @@ export function WishlistDisplay({ wishlist }: WishlistDisplayProps) {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-2xl font-bold text-primary mb-4">🎁 Wishlist de votre Gâté secret</h3>
+      <h3 className="text-2xl font-bold text-white mb-4">🎁 Wishlist de votre Gâté secret</h3>
       
       {wishlist.freeText && (
         <div className="mb-6">
@@ -93,7 +93,7 @@ export function WishlistDisplay({ wishlist }: WishlistDisplayProps) {
                             </div>
                           )}
                           {item.estimatedPrice && (
-                            <div className="text-primary text-sm font-semibold">
+                            <div className="text-white text-sm font-semibold">
                               {item.estimatedPrice.toFixed(2)}€
                             </div>
                           )}
@@ -111,7 +111,7 @@ export function WishlistDisplay({ wishlist }: WishlistDisplayProps) {
                           href={item.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-primary hover:underline text-sm inline-block mb-2"
+                          className="text-white hover:underline text-sm inline-block mb-2"
                         >
                           🔗 Voir le lien →
                         </a>

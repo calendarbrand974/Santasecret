@@ -49,7 +49,7 @@ export function TargetCard({ target }: TargetCardProps) {
     <Card>
       <div className="text-center space-y-4">
         <div className="text-3xl mb-4">🎁</div>
-        <h2 className="text-2xl font-bold text-primary">
+        <h2 className="text-2xl font-bold text-white">
           Votre Gâté secret est : {name}
         </h2>
         
@@ -107,7 +107,7 @@ export function TargetCard({ target }: TargetCardProps) {
                                   </div>
                                 )}
                                 {item.estimatedPrice && (
-                                  <div className="text-primary text-sm font-semibold">
+                                  <div className="text-white text-sm font-semibold">
                                     {item.estimatedPrice.toFixed(2)}€
                                   </div>
                                 )}
@@ -123,7 +123,7 @@ export function TargetCard({ target }: TargetCardProps) {
                                 href={item.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-primary hover:underline text-sm inline-block mb-1"
+                                className="text-white hover:underline text-sm inline-block mb-1"
                               >
                                 Voir le lien →
                               </a>

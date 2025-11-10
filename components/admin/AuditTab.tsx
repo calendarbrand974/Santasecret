@@ -121,7 +121,7 @@ export function AuditTab({ groupId }: AuditTabProps) {
                       {formatDate(log.createdAt)}
                     </td>
                     <td className="p-3">
-                      <span className="px-2 py-1 rounded text-xs bg-primary/20 text-primary">
+                      <span className="px-2 py-1 rounded text-xs bg-primary/20 text-white">
                         {ACTION_LABELS[log.action] || log.action}
                       </span>
                     </td>

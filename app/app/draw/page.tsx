@@ -113,7 +113,7 @@ export default async function DrawPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-primary mb-2">Mon Gâté secret</h1>
+            <h1 className="text-3xl font-bold text-white mb-2">Mon Gâté secret</h1>
             <p className="text-gray-400">
               Découvrez à qui vous offrez un cadeau cette année
             </p>

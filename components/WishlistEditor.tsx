@@ -471,7 +471,7 @@ export function WishlistEditor({ initialFreeText = '', initialItems = [], groupI
                           <div className="flex-1">
                             <h3 className="font-semibold text-white mb-1">{item.title}</h3>
                             {item.category && (
-                              <span className="inline-block px-2 py-1 text-xs bg-primary/20 text-primary rounded mb-2">
+                              <span className="inline-block px-2 py-1 text-xs bg-primary/20 text-white rounded mb-2">
                                 {item.category}
                               </span>
                             )}
@@ -500,7 +500,7 @@ export function WishlistEditor({ initialFreeText = '', initialItems = [], groupI
                                 href={item.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="mt-2 inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 border border-primary/30 rounded text-sm text-primary transition-colors group"
+                                className="mt-2 inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 hover:bg-primary/20 border border-primary/30 rounded text-sm text-white transition-colors group"
                               >
                                 <svg 
                                   xmlns="http://www.w3.org/2000/svg" 
@@ -539,7 +539,7 @@ export function WishlistEditor({ initialFreeText = '', initialItems = [], groupI
                           <div className="flex items-center gap-1">
                             <button
                               onClick={() => openEditModal(originalIndex)}
-                              className="flex-shrink-0 p-2 text-gray-400 hover:text-primary hover:bg-dark-surface rounded transition-colors"
+                              className="flex-shrink-0 p-2 text-gray-400 hover:text-white hover:bg-dark-surface rounded transition-colors"
                               title="Modifier"
                             >
                               <EditIcon />

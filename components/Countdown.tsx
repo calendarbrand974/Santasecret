@@ -53,19 +53,19 @@ export function Countdown({ targetDate, timeZone, onComplete }: CountdownProps) 
       <div className="text-2xl font-bold mb-2">Ouverture du tirage dans :</div>
       <div className="flex gap-4 justify-center">
         <div className="flex flex-col items-center">
-          <div className="text-4xl font-bold text-primary">{days}</div>
+          <div className="text-4xl font-bold text-white">{days}</div>
           <div className="text-sm text-gray-400">jours</div>
         </div>
         <div className="flex flex-col items-center">
-          <div className="text-4xl font-bold text-primary">{hours}</div>
+          <div className="text-4xl font-bold text-white">{hours}</div>
           <div className="text-sm text-gray-400">heures</div>
         </div>
         <div className="flex flex-col items-center">
-          <div className="text-4xl font-bold text-primary">{minutes}</div>
+          <div className="text-4xl font-bold text-white">{minutes}</div>
           <div className="text-sm text-gray-400">minutes</div>
         </div>
         <div className="flex flex-col items-center">
-          <div className="text-4xl font-bold text-primary">{seconds}</div>
+          <div className="text-4xl font-bold text-white">{seconds}</div>
           <div className="text-sm text-gray-400">secondes</div>
         </div>
       </div>

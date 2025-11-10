@@ -84,7 +84,7 @@ function ToastItem({ toast, onClose }: { toast: Toast, onClose: () => void }) {
     success: 'bg-green-500/20 border-green-500 text-green-400',
     error: 'bg-accent/20 border-accent text-accent',
     warning: 'bg-yellow-500/20 border-yellow-500 text-yellow-400',
-    info: 'bg-primary/20 border-primary text-primary',
+    info: 'bg-primary/20 border-primary text-white',
   }
 
   return (

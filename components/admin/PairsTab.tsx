@@ -324,7 +324,7 @@ export function PairsTab({ groupId }: PairsTabProps) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <Card>
           <div className="text-center">
-            <div className="text-3xl font-bold text-primary mb-1">{totalCount}</div>
+            <div className="text-3xl font-bold text-white mb-1">{totalCount}</div>
             <div className="text-sm text-gray-400">Paires totales</div>
           </div>
         </Card>
@@ -394,7 +394,7 @@ export function PairsTab({ groupId }: PairsTabProps) {
                     />
                   </td>
                   <td className="p-3 font-medium">{assignment.giverName}</td>
-                  <td className="p-3 text-primary">→</td>
+                  <td className="p-3 text-white">→</td>
                   <td className="p-3 font-medium">{assignment.receiverName}</td>
                   <td className="p-3">
                     {assignment.revealedAt ? (
@@ -512,7 +512,7 @@ export function PairsTab({ groupId }: PairsTabProps) {
                                   href={item.link}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="text-primary hover:underline"
+                                  className="text-white hover:underline"
                                 >
                                   Voir le lien →
                                 </a>

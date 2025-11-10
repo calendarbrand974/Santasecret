@@ -308,7 +308,7 @@ export function SettingsTab({ groupId }: SettingsTabProps) {
                   {forbiddenPairs.map(pair => (
                     <tr key={pair.id} className="border-b border-dark-border hover:bg-dark-surface/50 transition-colors">
                       <td className="p-3 font-medium">{pair.giverName}</td>
-                      <td className="p-3 text-primary">→</td>
+                      <td className="p-3 text-white">→</td>
                       <td className="p-3 font-medium">{pair.receiverName}</td>
                       <td className="p-3">
                         <button

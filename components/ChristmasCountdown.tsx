@@ -63,7 +63,7 @@ export function ChristmasCountdown() {
   if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
     return (
       <div className="text-center py-4">
-        <div className="text-3xl font-bold text-primary mb-2">🎄 Joyeux Noël ! 🎄</div>
+        <div className="text-3xl font-bold text-white mb-2">🎄 Joyeux Noël ! 🎄</div>
         <div className="text-gray-300">C'est le grand jour !</div>
       </div>
     )

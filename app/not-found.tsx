@@ -8,7 +8,7 @@ export default function NotFound() {
       <Card className="max-w-md w-full text-center">
         <div className="space-y-4">
           <div className="text-6xl">🔍</div>
-          <h1 className="text-3xl font-bold text-primary">404</h1>
+          <h1 className="text-3xl font-bold text-white">404</h1>
           <p className="text-gray-400">
             La page que vous cherchez n'existe pas.
           </p>
