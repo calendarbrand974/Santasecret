@@ -97,14 +97,39 @@ export default async function DrawPage() {
   const hasAssignment = await checkAssignmentExists(session.groupId, member.id)
   
   // Préparer les données du Gâté secret si déjà révélé
-  const targetData = revealedTarget ? {
-    name: revealedTarget.user?.displayName || 'Inconnu',
-    wishlist: revealedTarget.wishlist ? {
-      freeText: revealedTarget.wishlist.freeText ?? undefined,
-      items: revealedTarget.wishlist.items as any,
-      updatedAt: revealedTarget.wishlist.updatedAt.toISOString(),
-    } : undefined,
-  } : null
+  let targetData: {
+    name: string
+    wishlist?: {
+      freeText?: string
+      items?: any
+      updatedAt?: string
+    }
+  } | null = null
+
+  if (revealedTarget) {
+    const wishlist = revealedTarget.wishlist
+    let wishlistItems: any
+
+    if (wishlist?.items) {
+      try {
+        // Normaliser les données JSON provenant de Prisma (retire les types non sérialisables)
+        wishlistItems = JSON.parse(JSON.stringify(wishlist.items))
+      } catch (error) {
+        console.error('[DRAW PAGE] Impossible de sérialiser wishlist.items', error)
+      }
+    }
+
+    targetData = {
+      name: revealedTarget.user?.displayName || 'Inconnu',
+      wishlist: wishlist
+        ? {
+            freeText: wishlist.freeText ?? undefined,
+            items: wishlistItems,
+            updatedAt: wishlist.updatedAt ? wishlist.updatedAt.toISOString() : undefined,
+          }
+        : undefined,
+    }
+  }
   
   return (
     <div className="min-h-screen bg-dark-bg">
