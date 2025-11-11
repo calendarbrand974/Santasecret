@@ -3,7 +3,6 @@ import "./globals.css";
 import Script from "next/script";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ToastProvider } from "@/components/Toast";
-import { Snowflakes } from "@/components/Snowflakes";
 import { ChristmasGarland } from "@/components/ChristmasGarland";
 
 export const metadata: Metadata = {
@@ -23,7 +22,6 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <Snowflakes />
         <div className="relative min-h-screen">
           <ChristmasGarland />
           <ErrorBoundary>
