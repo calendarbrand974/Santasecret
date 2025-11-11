@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { requireAdmin } from '@/lib/rbac'
 import { prisma } from '@/lib/prisma'
 import { validate } from '@/lib/validation'
+import { localDateTimeStringToUTC } from '@/lib/tz'
 import { z } from 'zod'
 
 // Forcer Node.js runtime (requis pour Prisma en serverless)
@@ -77,10 +78,28 @@ export async function PUT(
     
     const data = validation.data
     
+    // Récupérer le timeZone actuel ou le nouveau pour la conversion
+    const currentGroup = await prisma.group.findUnique({
+      where: { id: params.id },
+      select: { timeZone: true },
+    })
+    const targetTimeZone = data.timeZone || currentGroup?.timeZone || 'UTC'
+    
     const updateData: any = {}
     if (data.name) updateData.name = data.name
     if (data.timeZone) updateData.timeZone = data.timeZone
-    if (data.openAt) updateData.openAt = new Date(data.openAt)
+    if (data.openAt) {
+      // Si openAt est une string ISO datetime complète, l'utiliser directement
+      // Sinon, supposer que c'est une date locale dans le timeZone du groupe
+      const openAtStr = data.openAt
+      if (openAtStr.includes('T') && (openAtStr.includes('Z') || openAtStr.includes('+') || openAtStr.includes('-'))) {
+        // C'est déjà une date ISO avec timezone, utiliser directement
+        updateData.openAt = new Date(openAtStr)
+      } else {
+        // C'est une date locale, convertir en UTC selon le timeZone
+        updateData.openAt = localDateTimeStringToUTC(openAtStr, targetTimeZone)
+      }
+    }
     
     const group = await prisma.group.update({
       where: { id: params.id },
