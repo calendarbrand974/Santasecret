@@ -103,12 +103,12 @@ export function DrawPanel({ groupId, openAt, timeZone, isOpen, hasAssignment = t
   if (!isOpen) {
     return (
       <Card>
-        <div className="mb-6">
-          <SleepingSanta />
-        </div>
         <Countdown targetDate={openAt} timeZone={timeZone} />
         <div className="mt-6 text-center text-gray-400">
           Le tirage n'est pas encore ouvert. Revenez à l'heure indiquée !
+        </div>
+        <div className="mt-8">
+          <SleepingSanta />
         </div>
       </Card>
     )
