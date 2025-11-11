@@ -134,14 +134,13 @@ export function ScratchCard({ targetName, onReveal }: ScratchCardProps) {
           const progress = calculateProgress()
           setScratchProgress(progress)
           
-          // Si plus de 20% est gratté, considérer comme révélé (mais ne pas tout révéler)
-          if (progress > 20 && !hasRevealedRef.current) {
+          // Si 100% est gratté, considérer comme révélé
+          if (progress >= 100 && !hasRevealedRef.current) {
             hasRevealedRef.current = true
             setIsRevealed(true)
             if (onReveal) {
               onReveal()
             }
-            // Ne pas révéler tout d'un coup, laisser l'utilisateur continuer à gratter
           }
         })
       }
