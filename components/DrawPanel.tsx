@@ -1,7 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { Button } from './Button'
 import { Card } from './Card'
 import { Countdown } from './Countdown'
@@ -21,7 +20,6 @@ interface DrawPanelProps {
 }
 
 export function DrawPanel({ groupId, openAt, timeZone, isOpen, hasAssignment = true }: DrawPanelProps) {
-  const router = useRouter()
   const toast = useToast()
   const [revealing, setRevealing] = useState(false)
   const [target, setTarget] = useState<any>(null)
@@ -83,8 +81,6 @@ export function DrawPanel({ groupId, openAt, timeZone, isOpen, hasAssignment = t
   
   const handleViewWishlist = () => {
     setShowWishlist(true)
-    // Rafraîchir la page pour afficher la wishlist complète
-    router.refresh()
   }
   
   const handleScratchStart = async () => {
@@ -99,6 +95,49 @@ export function DrawPanel({ groupId, openAt, timeZone, isOpen, hasAssignment = t
     // Quand l'utilisateur a gratté plus de 50%, révéler dans la DB
     await handleReveal()
   }
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    let isActive = true
+
+    const fetchRevealedAssignment = async () => {
+      try {
+        const response = await fetch(`/api/groups/${groupId}/assignment/me`, {
+          cache: 'no-store',
+        })
+
+        if (!isActive) return
+
+        if (response.status === 404) {
+          setTarget(null)
+          return
+        }
+
+        if (!response.ok) {
+          console.error('[DRAW PANEL] Erreur API assignment/me', response.status)
+          return
+        }
+
+        const data = await response.json()
+        setTarget(data)
+        setTargetName(data.name || null)
+        if (data.wishlist) {
+          setTargetWishlist(data.wishlist)
+        }
+      } catch (err) {
+        if (isActive) {
+          console.error('[DRAW PANEL] Erreur lors du chargement de la révélation', err)
+        }
+      }
+    }
+
+    fetchRevealedAssignment()
+
+    return () => {
+      isActive = false
+    }
+  }, [groupId, isOpen])
   
   if (!isOpen) {
     return (
@@ -114,6 +153,31 @@ export function DrawPanel({ groupId, openAt, timeZone, isOpen, hasAssignment = t
     )
   }
   
+  if (target) {
+    return (
+      <>
+        <TargetCard target={target} />
+
+        {target.wishlist && (
+          <div className="mt-6 text-center">
+            <button
+              onClick={() => setShowWishlist((prev) => !prev)}
+              className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-dark-bg font-bold rounded-lg shadow-lg transition-colors"
+            >
+              {showWishlist ? '🙈 Masquer la wishlist détaillée' : '🎁 Voir la wishlist détaillée'}
+            </button>
+          </div>
+        )}
+
+        {showWishlist && targetWishlist && (
+          <Card className="mt-6">
+            <WishlistDisplay wishlist={targetWishlist} />
+          </Card>
+        )}
+      </>
+    )
+  }
+
   // Ne plus afficher TargetCard directement, on garde le scratch card même après révélation
   // if (target) {
   //   return <TargetCard target={target} />
